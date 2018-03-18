@@ -66,8 +66,6 @@ var config = {
 
 
   //Caculate Next Train
-   // var tFrequency = frequency;
-  // var firstTime = startTime;
     var firstTimeConverted = moment(startTime, "HH:mm");
     var currentTime = moment();
       console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm A"));
@@ -75,18 +73,23 @@ var config = {
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
       console.log("DIFFERENCE IN TIME (MINS): " + diffTime);
 
-  var tRemainder = diffTime % frequency;
-  var tMinutesTillTrain = frequency - tRemainder;
-    console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+     var tRemainder = diffTime % frequency;
+     var tMinutesTillTrain = frequency - tRemainder;
+      console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
-  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-  var nextTainFormated = moment(nextTrain).format("hh:mm A");
-    console.log("ARRIVAL TIME: " + nextTainFormated);
+      var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+      var nextTainFormated = moment(nextTrain).format("hh:mm A");
+      console.log("ARRIVAL TIME: " + nextTainFormated);
 
-
-  
 
   // Add each train's data into the table
   $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
   frequency + "</td><td>" + nextTainFormated + "</td><td>" + tMinutesTillTrain + "</td></tr>");
+});
+
+
+$("#clear-train-btn").on("click", function(event) {
+  event.preventDefault();
+  database.ref().remove();
+  $("#train-table > tbody").html("");
 });
