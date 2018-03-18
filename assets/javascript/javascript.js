@@ -64,19 +64,29 @@ var config = {
   console.log(startTime);
   console.log(frequency);
 
-  // Prettify the train start
-  //var trainStartPretty = moment.unix(startTime).format("HH:mm");
 
-  // Calculate the months worked using hardcore math
+  //Caculate Next Train
+   // var tFrequency = frequency;
+  // var firstTime = startTime;
+    var firstTimeConverted = moment(startTime, "HH:mm");
+    var currentTime = moment();
+      console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm A"));
 
-  // var empMonths = moment().diff(moment.unix(empStart, "X"), "months");
-  // console.log(empMonths);
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+      console.log("DIFFERENCE IN TIME (MINS): " + diffTime);
 
-  // // Calculate the total billed rate
-  // var empBilled = empMonths * empRate;
-  // console.log(empBilled);
+  var tRemainder = diffTime % frequency;
+  var tMinutesTillTrain = frequency - tRemainder;
+    console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  var nextTainFormated = moment(nextTrain).format("hh:mm A");
+    console.log("ARRIVAL TIME: " + nextTainFormated);
+
+
+  
 
   // Add each train's data into the table
   $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
-  frequency + "</td><td>" + frequency + "</td></tr>" + frequency + "</td></tr>");
+  frequency + "</td><td>" + nextTainFormated + "</td><td>" + tMinutesTillTrain + "</td></tr>");
 });
